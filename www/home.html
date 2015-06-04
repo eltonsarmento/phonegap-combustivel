@@ -1,0 +1,206 @@
+<!DOCTYPE html> 
+<html> 
+
+<head> 
+	<title>Combustivel+</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1 "> 
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/verificaAcesso.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+</head> 
+<body> 
+<div data-role="page" style="top: 0px" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="Combustivel+EmConta" >
+    <div role="main" class="ui-contents jqm-content jqm-fullwidth">     
+        <div data-role="tabs">    
+            <div data-role="navbar">
+                <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+                 <!-- <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul> -->
+            </div>
+        </div>
+    </div>
+     <div class="ui-panel-wrappers">
+        <div data-role="header">
+            <h1>Combustivel+</h1>
+            <a href="#nav-panel" data-icon="gear" data-position="right" >Menu</a>
+        </div>
+    </div> 
+    <div role="main" class="ui-contents jqm-content jqm-fullwidth"> 
+        <div data-role="tabs">
+            <div data-role="navbar">
+                <ul>
+                  <li><a class="ui-btn-active" id="btnInicio" href="#one" data-theme="a" data-ajax="false">Início</a></li>
+                  <li><a href="#two" data-theme="a" data-ajax="false">Favoritos</a></li>
+                  <li><a href="http://localhost:8888/combustivel/www/formCadastroPosto.html" id="navbarPosto" data-ajax="false">Cadastrar Posto</a></li>
+                </ul>
+            </div>
+            <div id="one" class="ui-content">
+                <ul data-role="listview" data-inset="false" id='listaDePostos'></ul>    
+            </div>
+            <div id="two" class="ui-content">
+                <ul data-role="listview" id="listaDePostoFavoritos"></ul>
+            </div>
+            
+        </div>
+    </div> <!--/content -->
+    
+    <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
+        <ul data-role="listview">
+                <li><a id="#" href="#" data-ajax="false"></a></li>
+                <li><a id="linkEditarPerfil" href="formCadastroUsuario.html?c=" data-ajax="false">Editar Perfil</a></li>
+                <li><a href="ajuda.html" data-ajax="false">Ajuda</a></li>
+                <li data-icon="back"><a href="#" data-rel="close">Voltar</a></li>
+                <li data-icon="delete"><a href="#" id="logout" data-ajax="false">Logout</a></li>
+                
+        </ul>
+    </div><!-- /panel -->
+
+</div>
+<script type="text/javascript">
+$('#navbarPosto').on('click',function(e){
+    e.preventDefault();
+    //window.location.href =  "http://localhost:8888/combustivel/www/formCadastroPosto.html";
+    window.location.href =  "formCadastroPosto.html";
+});
+
+$('#logout').on('click', function(e){
+    e.preventDefault();
+    window.localStorage.removeItem("username");
+    window.localStorage.removeItem("codigo");
+    window.location.href = "index.html";
+});
+
+/* BUSCA POSTO*/
+$(function() {
+var login = window.localStorage.getItem("username");
+//$.get('http://localhost:8888/combustivel/www/php/getUsuario.php', {login:login}, function html(json) {
+$.get('http://eforms.esy.es/phonegap/getUsuario.php', {login:login}, function html(json) {
+    dados = jQuery.parseJSON(json);
+    $('#linkEditarPerfil').attr('href','formCadastroUsuario.html?c='+dados.codigo);
+    window.localStorage.setItem("codigo", dados.codigo);
+    
+    getFavoritos(dados.codigo);
+});
+
+
+getPostos('atualizacao'); 
+
+}); 
+
+
+
+function getPostos(filtro) { 
+
+    var data = "";
+    var cont = 0;
+    var qtd = 0;
+    var vetor = null;
+    //$.get('http://localhost:8888/combustivel/www/php/getPostos.php', {filtro:filtro}, function html(json) {
+    $.get('http://eforms.esy.es/phonegap/getPostos.php', {filtro:filtro}, function html(json) {
+
+        var html = '';
+        var dados = jQuery.parseJSON(json);
+        vetor = new Array(dados.length);
+
+        $.each(dados.postos, function(chave,posto) {
+            
+            if(posto.data_atualizacao != data){
+                if(data != ""){
+                    vetor[cont-1] = qtd;
+                }
+
+                 html += '      <li data-role="list-divider"  ole="heading" class="ui-li-divider ui-bar-inherit ui-li-has-count ui-first-child">'
+                    +        posto.data_atualizacao+'<span id="headerByData'+cont+'"class="ui-li-count ui-body-inherit">0</span></li>';
+
+                 cont++;
+                 qtd = 1;
+            }else{
+                qtd++;
+            }
+
+           
+            html    +=      ' <li class="ui-li-has-thumb ui-last-child">'
+                    +        '   <a href="posto.html?c='+posto.codigo+'"class="ui-btn ui-btn-icon-right ui-icon-carat-r" data-ajax="false">'
+                    +        '      <img src="img/'+posto.bandeira+'">'
+                    +        '       <h2>'+posto.nome+'</h2>'
+                    +        '       <p><strong>'+posto.endereco+'</strong></p>'
+                    +        '        <p class="ui-li-asides"><strong>R$ </strong>'+posto.gasolina+'</p>'
+                    +        '   </a>'
+                    +        '</li>';            
+            
+           
+            data = posto.data_atualizacao;
+            
+        });
+        vetor[cont-1] = qtd;
+
+        $('#listaDePostos').append(html);   
+
+        for(var i = 0; i < vetor.length; i++){
+            if(vetor[i] != ""){
+                $('#headerByData'+i).html(vetor[i]);
+            }
+            
+        }    
+        
+        
+    });  
+}
+function getFavoritos(codigo) { 
+    //$.get('http://localhost:8888/combustivel/www/php/getPostos.php', {usuario:codigo}, function html(json) {
+    $.get('http://eforms.esy.es/phonegap/getPostos.php', {usuario:codigo}, function html(json) {
+        
+        var dados = jQuery.parseJSON(json);
+        var html = '<br>';
+        $.each(dados.postos, function(chave,posto) {
+            
+            html    +=      ' <li class="ui-li-has-thumb ui-last-child">'
+                    +        '   <a href="posto.html?c='+posto.codigo+'"class="ui-btn ui-btn-icon-right ui-icon-carat-r" data-ajax="false">'
+                    +        '      <img src="img/'+posto.bandeira+'">'
+                    +        '       <h2>'+posto.nome+'</h2>'
+                    +        '       <p><strong>'+posto.endereco+'</strong></p>'
+                    +        '        <p class="ui-li-asides"><strong>R$ </strong>'+posto.gasolina+'</p>'
+                    +        '   </a>'
+                    +        '</li>';            
+        });
+        $('#listaDePostoFavoritos').append(html);
+    });  
+
+}
+
+$( document ).on( "click", ".show-page-loading-msg", function() {
+    var $this = $( this ),
+        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+        textonly = !!$this.jqmData( "textonly" );
+        html = $this.jqmData( "html" ) || "";
+    $.mobile.loading( "show", {
+            text: msgText,
+            textVisible: textVisible,
+            theme: theme,
+            textonly: textonly,
+            html: html
+    });
+})
+.on( "click", ".hide-page-loading-msg", function() {
+    $.mobile.loading( "hide" );
+});
+
+$('#btnVoltar').on('click',function(e){
+    e.preventDefault();
+    //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
+    window.location.href =  "home.html";
+});
+</script>
+
+
+</body>
+</html>

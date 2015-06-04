@@ -1,0 +1,29 @@
+
+			/* ==========================================================================
+			   Author's custom styles
+
+				Screen Stylesheet
+
+				version:   1.0
+				date:      29/10/2013
+				author:    Disnay Batista
+				email:     disnay@hotmail.com
+
+				website:   http://www.cesmac.com.br
+			   ========================================================================== */
+
+			/* MENU PRINCIPAL TOPO */
+
+			.menu {
+				background-color: #007CC4;
+				border-radius: 3px;
+				margin-bottom: 0px;
+				margin-top: 5%;
+				/* Opacidade no menu
+				filter: alpha(opacity=.75);
+					-moz-opacity: .75;
+					opacity: .75;
+				*/
+			}
+
+			/* fim */

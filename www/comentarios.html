@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Page Title</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head> 
+<body> 
+
+<div data-role="page" id="demo-page" style="top: 0px">
+    <div role="main" class="ui-contents jqm-content jqm-fullwidth">     
+        <div data-role="tabs">    
+            <div data-role="navbar">
+                <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+                 <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="ui-panel-wrappers">
+        <div data-role="header">
+            <h1 id="headerNomePosto">Posto</h1>
+            <a href="posto.html?c=19" data-ajax="false" data-position="right"  data-icon="back">Voltar </a>
+        </div><!-- /header -->
+    </div><!-- /header -->
+
+    <div data-demo-html="true">
+        <ul data-role="listview" id="listaDeComentarios" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+
+        </ul>
+    </div>
+
+</div>
+</body>
+<script type="text/javascript">
+$(function() {
+
+/* VALIDA E CARREGA PAGINA*/
+var id_posto = window.location.href.split("c=")[1];
+
+if($.isNumeric(id_posto)){
+    buscarComentariosPosto(id_posto);
+}else{
+    window.document.href = "home.html";
+}
+
+
+});
+
+
+
+function buscarComentariosPosto(id_posto) { 
+    
+    var data = "";
+    var cont = 0;
+    var qtd = 0;
+    var vetor = null;
+    $.get('http://eforms.esy.es/phonegap/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
+    //$.get('http://localhost:8888/combustivel/www/php/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
+    
+        var html = '';
+        var dados = jQuery.parseJSON(json);
+        vetor = new Array(dados.length);
+
+        $.each(dados.comentarios, function(chave,comentario) {
+            
+            if(comentario.data_cadastro != data){
+                if(data != ""){
+                    vetor[cont-1] = qtd;
+                }
+
+                 html += '      <li data-role="list-divider"  ole="heading" class="ui-li-divider ui-bar-inherit ui-li-has-count ui-first-child">'
+                    +        comentario.data_cadastro+'<span id="headerByData'+cont+'"class="ui-li-count ui-body-inherit">0</span></li>';
+
+                 cont++;
+                 qtd = 1;
+            }else{
+                qtd++;
+            }
+
+           
+            html    +=      ' <li> '
+                    +        '   <a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r" data-ajax="false">'
+                    +        '       <h2>'+comentario.nome_usuario+'</h2>'
+                    +        '       <p><strong>'+comentario.comentario+'</strong></p>'
+                    +        '        <p class="ui-li-aside"><strong>'+comentario.hora+'</strong>'+comentario.sinal+'</p>'
+                    +        '   </a>'
+                    +        '</li>';            
+
+            data = comentario.data_cadastro;
+            
+        });
+        vetor[cont-1] = qtd;
+
+        $('#listaDeComentarios').append(html);   
+
+        for(var i = 0; i < vetor.length; i++){
+            if(vetor[i] != ""){
+                $('#headerByData'+i).html(vetor[i]);
+            }
+            
+        }    
+        
+        
+    });  
+}
+</script>
+</html>

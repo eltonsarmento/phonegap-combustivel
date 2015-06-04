@@ -1,0 +1,299 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Page Title</title> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/verificaAcesso.js"></script>
+</head> 
+<body class="ui-mobile-viewport ui-overlay-a"> 
+
+<div data-role="page" style="top: 0px"  class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="Combustivel+EmConta" >
+	<div role="main" class="ui-contents jqm-content jqm-fullwidth">     
+        <div data-role="tabs">    
+            <div data-role="navbar">
+                <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+                 <!-- <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul> -->
+            </div>
+        </div>
+    </div>
+    <div data-role="header">
+        <h1>Cadastro Posto</h1>
+        <a href="#" id="btnVoltar" class="ui-btn ui-icon-back ui-btn-icon-left ui-shadow ui-corner-all" data-position="right" >Voltar</a>
+    </div><!-- /header -->
+	
+
+	<div class="ui-content" role="main">
+
+
+
+	<form class="form-signin" id="formCadastroPosto" action="#" method="posto">
+		<div >
+	        <label class="alert alert-danger" id="msg_error" style="display: none">Campos com erro(s).
+	        </label>
+	    </div>
+		<div id="ui-bar-form" class="ui-bar ui-bar-a">
+
+			
+		
+			<!--  CAMPO BANDEIRA POSTO-->
+			<div class="ui-field-contain">
+				<label for="select-choice-1" class="select">Bandeira do Posto:</label>
+				<select name="inputBandeira" id="inputBandeira"  tabindex="-1">
+					<option value="BR-PETROBRAS.jpg">BR - Petrobras</option>
+					<option value="IPIRANGA.jpg">Ipiranga</option>
+					<option value="SHELL.png">Shell</option>
+					<option value="ALE">Ale</option>
+				</select>
+			</div>
+			<!--  FIM CAMPO BANDEIRA POSTO-->
+			<!--  CAMPO NOME POSTO-->
+			<div class="ui-field-contain">
+				<label for="name3">Nome do Posto:</label>
+				<input type="text" name="inputNome" id="inputNome"  data-clear-btn="true" >
+			</div>
+			<!-- FIM CAMPO NOME POSTO-->
+			<!-- CAMPO LOCALIZAÇÃO-->
+			<div class="ui-field-contain">
+				<label for="name3">Localização: <span id="campoLocalizacao"></span></label>
+				<input type="hidden" name="inputLocalizacaoLat" id="inputLocalizacaoLat" >
+				<input type="hidden" name="inputLocalizacaoLon" id="inputLocalizacaoLon" >
+				<a href="#" id="btnObterLocalizacao" class="ui-btn ui-corner-all ui-shadow ui-icon-grid ui-btn-icon-right ui-last-child">Obter Localização</a>
+			</div>
+			<!-- CAMPO LOCALIZAÇÃO-->
+
+			<!-- CAMPOS COMBUSTÍVEIS-->
+				<fieldset class="ui-grid-a"><div class="ui-block-a">
+						<a id="btnGasolina" class="ui-btn ui-corner-all ui-shadow ui-mini" href="#popupCombustivel" data-rel="popup" data-position-to="window" data-transition="pop" aria-haspopup="true" aria-owns="popupCombustivel" aria-expanded="false">Gasol. R$ 0.00</a>
+						<input type="hidden" name="gasolina" id="hiddenGasolina" value="0.00">
+					</div><div class="ui-block-b">
+						<a id="btnAlcool" class="ui-btn ui-corner-all ui-shadow ui-mini" href="#popupCombustivel" data-rel="popup" data-position-to="window" data-transition="pop"  aria-haspopup="true" aria-owns="popupCombustivel" aria-expanded="false">Alcool R$ 0.00</a>
+						<input type="hidden" name="alcool" id="hiddenAlcool" value="0.00">
+					</div>
+				</fieldset>
+				<fieldset class="ui-grid-a"><div class="ui-block-a">
+						<a id="btnDiesel" class="ui-btn ui-corner-all ui-shadow ui-mini" href="#popupCombustivel" data-rel="popup" data-position-to="window" data-transition="pop" ria-haspopup="true" aria-owns="popupCombustivel" aria-expanded="false">Diesel R$ 0.00</a>
+						<input type="hidden" name="diesel" id="hiddenDiesel" value="0.00">
+					</div><div class="ui-block-b">
+						<a id="btnGnv" class="ui-btn ui-corner-all ui-shadow ui-mini" href="#popupCombustivel" data-rel="popup" data-position-to="window" data-transition="pop" aria-haspopup="true" aria-owns="popupCombustivel" aria-expanded="false">GNV R$ 0.00</a>
+						<input type="hidden" name="gnv" id="hiddenGnv" value="0.00">
+					</div>
+				</fieldset>
+				<div data-role="popup" id="popupCombustivel" data-theme="a" class="ui-corner-all">
+				        <div style="padding:5px 10px;">
+				            <h3 id="nomeDoCombustivel"></h3>
+				            <label for="un" class="ui-hidden-accessible">Valor:</label>
+				            <input type="text" name="inputValorCombustivel" id="inputValorCombustivel" value="" placeholder="valor" data-theme="a">		
+				            <a href="#" id="salvarCombustivel" class="ui-btn ui-corner-all ui-shadow ui-btn-b ">Salvar</a>
+				        </div>
+				</div>
+			<!-- FIM CAMPOS COMBUSTÍVEIS-->
+		
+				<button type="submit" class="show-page-loading-msg" data-theme="b" data-textonly="false" data-textvisible="true" 
+			data-msgtext="Cadastrando Posto..." >Cadastrar</button>
+		</div>
+	</form>
+
+	<a id="cancelarLoader" class="hide-page-loading-msg" ></a>
+
+	<a id="loaderMap" data-msgtext="Capiturando Geolocalização" class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true"></a>
+</div>
+
+</div>
+
+
+
+<script>
+<!-- SETA NOME COMBUSTIVEL -->
+
+$("#btnGasolina").on("click", function() {	
+    $("#nomeDoCombustivel").html('Gasolina');
+});
+$("#btnAlcool").on("click", function() {	
+    $("#nomeDoCombustivel").html('Alcool');
+});
+$("#btnDiesel").on("click", function() {	
+    $("#nomeDoCombustivel").html('Diesel');
+});
+$("#btnGnv").on("click", function() {	
+    $("#nomeDoCombustivel").html('Gnv');
+});
+
+<!-- FIM SETA NOME COMBUSTIVEL -->
+
+
+
+<!-- SALVA COMBUSTIVEL -->
+$('#salvarCombustivel').on("click", function(e) {
+    e.preventDefault();
+    var valor = $('#inputValorCombustivel').val();  
+    var combustivel = $('#nomeDoCombustivel').html();
+    if(combustivel == 'Gasolina'){
+    	$("#btnGasolina").html('Gasol. R$ '+valor);
+    }else{
+		$("#btn"+combustivel).html(combustivel+' R$ '+valor);		
+    }  
+    $("#hidden"+combustivel).val(valor);
+    $('#popupCombustivel').popup('close');
+    $('#inputValorCombustivel').val('');  
+});
+<!-- FIM SALVA COMBUSTIVEL -->
+
+
+
+<!-- OBTER LOCALIZAÇÃO -->
+/*
+ * Google Maps documentation: http://code.google.com/apis/maps/documentation/javascript/basics.html
+ * Geolocation documentation: http://dev.w3.org/geo/api/spec-source.html
+ */
+
+$("#btnObterLocalizacao").on("click", function(e) {
+	e.preventDefault();
+	$("#loaderMap").click();	
+	if(navigator.geolocation) {
+    	navigator.geolocation.getCurrentPosition(function(position) {
+	      	var  lat = position.coords.latitude;
+	      	var  lon = position.coords.longitude;
+	      	$("#campoLocalizacao").html(lat + " " + lon);
+	      	$("#inputLocalizacaoLat").val(lat);
+	      	$("#inputLocalizacaoLon").val(lon);
+	      	$("#cancelarLoader").click();
+	    	}, function() {      
+    	});
+    	
+	} else {
+		$("#cancelarLoader").click();
+	}
+});
+
+<!-- FIM OBTER LOCALIZAÇÃO -->
+
+
+
+	
+
+
+<!-- CADASTRO DO POSTO -->
+ $('#formCadastroPosto').submit(function(e) {
+    e.preventDefault();
+    var msg = '';
+    var cont = 0;
+	$('#formCadastroPosto input').each(function(){
+	  	if($(this).val() == ''){
+
+	  		if($(this).attr('name') == 'inputNome'){
+	  			msg += 'O Campo Nome nao pode estar vasio. \n';
+	  		} else if($(this).attr('name') == 'inputLocalizacaoLat'){
+	  			msg += 'O Campo Localização não foi setado. \n';	
+	  		} 
+	  	}
+
+	  	if($(this).val() == '0.00'){
+	  		if($(this).attr('name') == 'gasolina'){
+	  			cont += 1;
+	  		}else if($(this).attr('name') == 'alcool'){
+	  			cont += 1;
+	  		}else if($(this).attr('name') == 'diesel'){
+	  			cont += 1;
+	  		}else if($(this).attr('name') == 'gnv'){
+	  			cont += 1;
+	  		}
+	  	}
+	});
+	if(cont > 3) {
+		msg += "Pelo menos um combustível tem que ser setado.";
+	}
+	if(msg != ''){
+		alert(msg);
+		$("#cancelarLoader").click();	
+		e.stop();
+	}else{
+		var vDados = $('#formCadastroPosto').serialize();
+	}
+	
+    $.ajax({
+        type: "POST",
+        url: "http://eforms.esy.es/phonegap/cadastroPosto.php",
+        data: vDados,
+        
+        success: function (result) {
+            if(result == '1'){
+                limpaFormulario();
+                $("#cancelarLoader").click();
+                alert('Posto cadastrado com sucesso!');
+            }else{          
+            	alert('NÃo foi possível cadastrar.');                  
+                document.getElementById("msg_error").style.display = "block";
+                $("#cancelarLoader").click();
+            }
+        },
+        error: function () {
+            $( ".hide-page-loading-msg" ).loader( "hide" );
+        }
+    })
+});
+
+function limpaFormulario(){
+	$('#formCadastroPosto input').each(function(){
+	  	if($(this).attr('name') == 'gasolina'){
+  			$(this).val('0.00');
+  		}else if($(this).attr('name') == 'alcool'){
+  			$(this).val('0.00');
+  		}else if($(this).attr('name') == 'diesel'){
+  			$(this).val('0.00');
+  		}else if($(this).attr('name') == 'gnv'){
+  			$(this).val('0.00');
+  		}else{
+  			$(this).val('');
+  		}
+	});
+	$('#btnGasolina').html('Gasol. R$ 0.00');
+	$('#btnAlcool').html('Alcool R$ 0.00');
+	$('#btnDiesel').html('Diesel R$ 0.00');
+	$('#btnGnv').html('Gnv R$ 0.00');
+	$('#campoLocalizacao').html('');
+	$('#formCadastroPosto')[0].reset();
+
+
+}
+<!-- FIM CADASTRO DO POSTO -->
+
+
+
+$( document ).on( "click", ".show-page-loading-msg", function() {
+    var $this = $( this ),
+        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+        textonly = !!$this.jqmData( "textonly" );
+        html = $this.jqmData( "html" ) || "";
+    $.mobile.loading( "show", {
+            text: msgText,
+            textVisible: textVisible,
+            theme: theme,
+            textonly: textonly,
+            html: html
+    });
+})
+.on( "click", ".hide-page-loading-msg", function() {
+    $.mobile.loading( "hide" );
+});
+
+$('#btnVoltar').on('click',function(e){
+    e.preventDefault();
+    //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
+    window.location.href =  "home.html";
+    
+});
+
+</script>
+</body>
+</html>

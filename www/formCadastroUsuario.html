@@ -1,0 +1,190 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>Page Title</title> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head> 
+<body class="ui-mobile-viewport ui-overlay-a"> 
+<br><br><br>
+<div data-role="page" style="top: 0px"  class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="Combustivel+EmConta" >
+	<div role="main" class="ui-contents jqm-content jqm-fullwidth">     
+        <div data-role="tabs">    
+            <div data-role="navbar">
+                <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+                 <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+     <div class="ui-panel-wrappers">
+        <div data-role="header" id="header">
+            <h2 id="nomeHeader">Cadastro Usuário</h2>
+            <a href="index.html" id="btnHeader" data-ajax="false" data-position="right"  data-icon="back">Login</a>
+        </div><!-- /header -->
+    </div><!-- /header -->
+	
+
+	<div class="ui-content" role="main">
+
+
+
+	<form class="form-signin" id="formCadastroUsuario" action="#" method="posto">
+		<div >
+	        <label class="alert alert-danger" id="msg_error" style="display: none">Campos com erro(s).
+	        </label>
+	    </div>
+		<div id="ui-bar-form" class="ui-bar ui-bar-a">
+
+			
+			<!--  CAMPO NOME POSTO-->
+			<div class="ui-field-contain">
+				<label for="name3">Nome:</label>
+				<input type="text" name="Nome" id="inputNome"  data-clear-btn="true" >
+				<input type="hidden" name="codigo" id="codigo"  data-clear-btn="true" >
+			</div>
+			<div class="ui-field-contain">
+				<label for="name3">Login:</label>
+				<input type="text" name="Login" id="inputLogin"  data-clear-btn="true" >
+			</div>
+			<div class="ui-field-contain">
+				<label for="name3">Email:</label>
+				<input type="text" name="Email" id="inputEmail"  data-clear-btn="true" >
+			</div>
+			<div class="ui-field-contain">
+				<label for="name3">Senha:</label>
+				<input type="password" name="Senha" id="inputSenha"  data-clear-btn="true" >
+			</div>
+			<div class="ui-field-contain">
+				<label for="name3">Confirma Senha:</label>
+				<input type="password" name="ConfirmaSenha" id="inputConfirmaSenha"  data-clear-btn="true" >
+			</div>
+			<!-- FIM CAMPO NOME POSTO-->
+		
+		
+		<button type="submit" class="show-page-loading-msg" data-theme="b" data-textonly="false" data-textvisible="true" 
+	data-msgtext="Cadastrando Usuário..." >Cadastrar</button>
+		</div>
+	</form>
+
+	<a id="cancelarLoader" class="hide-page-loading-msg" ></a>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+var id = window.location.href.split("c=")[1];
+if($.isNumeric(id)){
+
+	//$.get('http://localhost:8888/combustivel/www/getUsuario.php', {id:id}, function html(json) {
+	$.get('http://eforms.esy.es/phonegap/getUsuario.php', {id:id}, function html(json) {
+        
+        dados = jQuery.parseJSON(json);
+
+        $('#codigo').val(dados.codigo);
+        $('#inputNome').val(dados.nome);      
+        $('#inputLogin').val(dados.login);
+        $('#inputEmail').val(dados.email);
+	});
+
+	$("#header").html('<h1 >Editar Perfil</h1>\n<a href="home.html" data-ajax="false" data-position="right" data-icon="back">Voltar</a>');
+}
+
+
+<!-- CADASTRO DO POSTO -->
+ $('#formCadastroUsuario').submit(function(e) {
+    e.preventDefault();
+    var msg = '';
+    var cont = 0;
+
+	$('#formCadastroUsuario input').each(function(){
+
+	  	if($(this).val() == '' && $(this).attr('name') != 'codigo'){
+	  		msg += 'O campo '+ $(this).attr('name') + ' nao pode estar vazio. \n';
+	  	}
+	
+	});	
+	if($('#inputSenha').val() != '' && $('#inputConfirmaSenha').val() != ''){
+		if($('#inputSenha').val() != $('#inputConfirmaSenha').val()){
+	  		msg += 'O campo Confirma Senha está diferente do campo Senha.';
+	  	}
+	}
+	if(msg != ''){
+		alert(msg);
+		$("#cancelarLoader").click();	
+		e.stop();
+	}else{
+		var vDados = $('#formCadastroUsuario').serialize();
+		
+	}
+	
+    $.ajax({
+        type: "POST",
+        url: "http://eforms.esy.es/phonegap/cadastraUsuario.php",        
+        //url: "http://localhost:8888/combustivel/www/php/cadastraUsuario.php",
+        data: vDados,
+        success: function (result) {
+        	alert(result);
+            if(result == '1'){
+            	$("#cancelarLoader").click();
+            	window.localStorage.setItem("username", $('#inputLogin').val());
+                //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
+                window.location.href =  "home.html";
+            }else{          
+            	alert('error');                  
+                document.getElementById("msg_error").style.display = "block";
+                $("#cancelarLoader").click();
+            }
+        },
+        error: function () {
+            $( ".hide-page-loading-msg" ).loader( "hide" );
+        }
+    })
+});
+
+function limpaFormulario(){
+	$('#formCadastroPosto')[0].reset();
+}
+<!-- FIM CADASTRO DO POSTO -->
+
+
+
+$( document ).on( "click", ".show-page-loading-msg", function() {
+    var $this = $( this ),
+        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+        textonly = !!$this.jqmData( "textonly" );
+        html = $this.jqmData( "html" ) || "";
+    $.mobile.loading( "show", {
+            text: msgText,
+            textVisible: textVisible,
+            theme: theme,
+            textonly: textonly,
+            html: html
+    });
+})
+.on( "click", ".hide-page-loading-msg", function() {
+    $.mobile.loading( "hide" );
+});
+
+$('#btnVoltar').on('click',function(e){
+    e.preventDefault();
+    //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
+    window.location.href =  "home.html";
+});
+
+</script>
+</body>
+</html>
