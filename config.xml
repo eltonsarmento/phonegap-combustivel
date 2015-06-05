@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Combustivel mais em conta</name>
+<widget id="br.com.phonegap.combustivel" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Combustivel + em conta</name>
     <description>
-        Combustivel mais em conta é um app de pesquisa de posto com menor preço de combustivel.
-        Além disso você pode favoritar, comendar, avaliar e traçar uma rota para o mesmo.
+        Combustível + em conta é um app de pesquisa de posto com menor preço de combustivel.
+        Além disso, você pode favoritar, comendar, avaliar e traçar uma rota para o mesmo.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="eltonsarmento@gmail.com" href="http://elton.esy.es">
+        Elton Monteiro de Carvalho Sarmento.
     </author>
     <content src="index.html" />
     <preference name="permissions" value="none" />

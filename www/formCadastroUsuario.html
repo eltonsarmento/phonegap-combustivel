@@ -76,6 +76,15 @@
 
 	<a id="cancelarLoader" class="hide-page-loading-msg" ></a>
 
+	<a href="#popupDialog" id="btnPopup" data-rel="popup" data-position-to="window" data-transition="pop" ></a>
+    <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+        <div data-role="header" data-theme="a"><h1 id="tituloPopup"></h1></div>
+        <div role="main" class="ui-content">
+            <h3 class="ui-title" id="textoMaiorPopup"></h3>
+             <p id="textoMenorPopup"></p>
+            <a href="#" class="ui-btn ui-corner-all ui-shadow  ui-btn-b" data-rel="back" id="btnOkPopup">Entendi</a>
+        </div>
+    </div> 
 </div>
 
 </div>
@@ -111,17 +120,18 @@ if($.isNumeric(id)){
 	$('#formCadastroUsuario input').each(function(){
 
 	  	if($(this).val() == '' && $(this).attr('name') != 'codigo'){
-	  		msg += 'O campo '+ $(this).attr('name') + ' nao pode estar vazio. \n';
+	  		msg += 'O campo '+ $(this).attr('name') + ' não pode estar vazio. <br>';
 	  	}
 	
 	});	
 	if($('#inputSenha').val() != '' && $('#inputConfirmaSenha').val() != ''){
 		if($('#inputSenha').val() != $('#inputConfirmaSenha').val()){
-	  		msg += 'O campo Confirma Senha está diferente do campo Senha.';
+	  		msg += 'O campo Confirma Senha está diferente do campo Senha. <br>';
 	  	}
 	}
 	if(msg != ''){
-		alert(msg);
+		//alert(msg);
+		exibeMensagem('Erro','',msg,'Entendi');
 		$("#cancelarLoader").click();	
 		e.stop();
 	}else{
@@ -184,7 +194,13 @@ $('#btnVoltar').on('click',function(e){
     //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
     window.location.href =  "home.html";
 });
-
+function exibeMensagem(titulo,textoMaior,textoMenor,botao){
+    $('#tituloPopup').html(titulo);
+    $('#textoMaiorPopup').html(textoMaior);
+    $('#textoMenorPopup').html(textoMenor);
+    $('#btnOkPopup').html(botao);
+    $('#btnPopup').click();
+}
 </script>
 </body>
 </html>

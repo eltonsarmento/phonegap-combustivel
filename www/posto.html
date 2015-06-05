@@ -55,45 +55,59 @@
             <center id="endereco"></center>
             <center><strong>Valores dos Combustíveis</strong></center>
             <center>
-            <table data-role="tables" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-strokes">
-                 <thead>
-                   <tr>
-                     <th data-priority="3" >Gasolina</th>
-                     <th data-priority="3" >Álcool</th>            
-                     <th data-priority="3" >Diesel</th>            
-                     <th data-priority="3" >GNV</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr>
-                     <td><input type="text" id="inputGasolina" disabled="true"  value="0.00"></td>
-                     <td><input type="text" id="inputAlcool" disabled="true" value="0.00"></td>
-                     <td><input type="text" id="inputDiesel" disabled="true" value="0.00"></td>
-                     <td><input type="text" id="inputGnv" disabled="true" value="0.00"></td>
-                   </tr>            
-                 </tbody>
-            </table></center>
+                <table data-role="tables" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-strokes">
+                     <thead>
+                       <tr>
+                         <th data-priority="3" >Gasolina</th>
+                         <th data-priority="3" >Álcool</th>            
+                         <th data-priority="3" >Diesel</th>            
+                         <th data-priority="3" >GNV</th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr>
+                         <td><input type="text" id="inputGasolina" style="color: red" disabled="true"  value="0.00"></td>
+                         <td><input type="text" id="inputAlcool" disabled="true" value="0.00"></td>
+                         <td><input type="text" id="inputDiesel" disabled="true" value="0.00"></td>
+                         <td><input type="text" id="inputGnv" disabled="true" value="0.00"></td>
+                       </tr>            
+                     </tbody>
+                </table>
+            </center>
 
             
             <center><div id="estrelas" data-score="5"></div></center>
-            
+            <center>
+                <table data-role="tables"  data-mode="columntoggles" class="ui-responsive table-strokess">
+                     <thead>
+                     </thead>
+                     <tbody>
+                       <tr>
+                         <td><button id="btnEditar" >Edita Valores</button></td>
+                         <td><button id="btnFavoritar" >Add Favorito</button></td>
+                       </tr> 
 
-            <fieldset class="ui-grid-a">
+                     </tbody>
+                </table>
+            </center>
+            
+            <!-- <fieldset class="ui-grid-a">
+
                 <div class="ui-block-a">
-                    <a id="btnEditar" class="ui-btn ui-corner-all ui-shadow ui-minis" >$$ Editar</a>
+                    <button id="btnEditar" class="ui-btn ui-corner-all ui-shadow ui-minis" >$$ Editar</button>
                 </div>
                 <div class="ui-block-b">
-                    <a id="btnFavoritar" class="ui-btn ui-corner-all ui-shadow ui-minis" >Favoritar</a>
+                    <button id="btnFavoritar" class="ui-btn ui-corner-all ui-shadow ui-minis" >Favoritar</button>
                 </div>
-            </fieldset>
+            </fieldset> -->
             
 
             <center >
-                    <textarea style="display: none" id="textareaComentario" cols="5" rows="3" name="textarea-8" id="textarea-8" data-mini="true" placehold="escreva aqui..."></textarea>     
+                    <textarea style="display: none" id="textareaComentario" cols="5" rows="3" name="textarea-8" data-mini="true" placehold="escreva aqui..."></textarea>     
             </center>
-            <a id="btnComentar" class="ui-btn ui-corner-all ui-shadow" >Comentar</a>
+            <button id="btnComentar" class="ui-btn ui-corner-all ui-shadow" >Comentar</button>
 
-            <a href="comentarios.html" id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Todos Comentários</a>
+            <button href="comentarios.html" id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Todos Comentários</button>
 
             <div class="item">                
                 <input id="score-function" type="hidden" value="1" class="input">
@@ -104,7 +118,7 @@
                 <a id="readOnly-function-run" href="javascript:void(0);" title="readOnly"></a>
             </div>
 
-            <a href="#popupDialog" id="btnPopup" data-rel="popup" data-position-to="window" data-transition="pop" >x</a>
+            <a href="#popupDialog" id="btnPopup" data-rel="popup" data-position-to="window" data-transition="pop" ></a>
             <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                 <div data-role="header" data-theme="a"><h1 id="tituloPopup"></h1></div>
                 <div role="main" class="ui-content">
@@ -119,11 +133,15 @@
 
         <a id="loaderMap" data-msgtext="Traçando Rota..." data-theme="b"  class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true"></a>
 
+        <a id="loaderPagina" data-msgtext="Carregando..." data-theme="b"  class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true"></a>
+
     
         </div>
 
         </div><!-- /article -->
 
+        
+        </div>
        
         
     </div><!-- /content -->   
@@ -165,15 +183,15 @@ $('#btnCalcularRota').on('click',function(e){
 /* EDITA COMBUSTÍVEIS*/
 $('#btnEditar').on('click',function(e){
     e.preventDefault();
-    if($(this).html() == 'Gravar'){
+    if($(this).html() == 'Salvar Valores'){
         gravarEdicao();
         $("input[type='text']").attr( "disabled", 'disabled' );
         $( ".ui-input-text" ).addClass("ui-state-disabled")    
-        $(this).html('Editar');
-    }else if ($(this).html() == '$$ Editar'){
+        $(this).html('Edita Valores');
+    }else if ($(this).html() == 'Edita Valores'){
         $("input[type='text']").prop( "disabled", false );
         $( ".ui-input-text" ).removeClass("ui-state-disabled")    
-        $(this).html('Salvar valores');
+        $(this).html('Salvar Valores');
     }
 });
 function gravarEdicao(){
@@ -189,13 +207,13 @@ function gravarEdicao(){
         data: {codigoPosto: id_posto,gasolina: gasolina, alcool: alcool, diesel: diesel, gnv: gnv},
         success: function (result) {
             if(result == '1'){
-                alert('Combustíveis salvos com sucesso!');
-            }else{          
-                alert('não foi possivel comentar. '+result);                                  
+                exibeMensagem('Mensagem','','Combustíveis salvos com sucesso!','Ok');
+            }else{                                    
+                exibeMensagem('Mensagem','','Não foi possível Editar!','Entendi');
             }
         },
         error: function () {
-            alert('error kkk');
+            alert('error conexao');
         }
     })
 }
@@ -218,7 +236,7 @@ $('#btnComentar').on('click',function(e){
 function gravaComentario(texto){
     var comentario = $('#textareaComentario').val();
     if(comentario == ''){
-        alert('Comentário não pode estar vazio.');
+        exibeMensagem('Mensagem','','Comentário não pode estar vazio.','Entendi');
     }else{
 
         var id_usuario = window.localStorage.getItem("codigo");;
@@ -230,15 +248,15 @@ function gravaComentario(texto){
             data: {comentario: comentario, codigoUsuario: id_usuario, codigoPosto: id_posto},
             success: function (result) {
                 if(result == '1'){
-                    alert('comentario salvo com sucesso!');
+                    exibeMensagem('Mensagem','','Comentário salvo com sucesso!','Ok');
                     $('#textareaComentario').val('');
                     verificaComentarios(id_posto);
                 }else{          
-                    alert('não foi possível comentar. '+result);                                  
+                    exibeMensagem('Erro','','Não foi possível comentar.','Entendi');
                 }
             },
             error: function () {
-                alert('error');
+                alert('error conexao');
             }
         })
     }
@@ -248,13 +266,11 @@ function gravaComentario(texto){
 /* FAVORITA POSTO*/
 $('#btnFavoritar').on('click',function(e){
     e.preventDefault();
-    if($(this).html() == "Favoritar"){
+    if($(this).html() == "Add Favorito"){
         gravaFavorito();
     }else{
         deletaFavorito();
     }
-    //
-    //exibeMensagem("Favorito","Posto adicionado com sucesso!",'','OK!');
     
 });
 function gravaFavorito(){
@@ -267,18 +283,19 @@ function gravaFavorito(){
         data: {codigoUsuario: id_usuario, codigoPosto: id_posto},
         success: function (result) {
             if(result == '1'){
-                alert('Posto adicionado aos Favoritos!');
+                exibeMensagem('Mensagem','','Posto adicionado aos Favoritos!','Ok');
                 $('#btnFavoritar').html('Deleta Favorito');
             }else{          
-                alert('Não foi possivel favoritar.');                                  
+                exibeMensagem('Erro','','Não foi possivel favoritar.','Entendi');
             }
         },
         error: function () {
-            alert('error');
+            alert('error conexao');
         }
     })
 }
 function verificaFavorito(){
+    $("#cancelarLoader").click();
     var id_usuario = window.localStorage.getItem("codigo");
     var id_posto   = $('#codigoPosto').val();
     $.ajax({
@@ -292,7 +309,7 @@ function verificaFavorito(){
             }
         },
         error: function () {
-            alert('error');
+            alert('error conexao');
         }
     })
 }
@@ -306,13 +323,14 @@ function deletaFavorito(){
         data: {codigoUsuario: id_usuario, codigoPosto: id_posto},
         success: function (result) {
             if(result == '1'){
-                $('#btnFavoritar').html('Favoritar');
+                $('#btnFavoritar').html('Add Favorito');
+                exibeMensagem('Mensagem','','Posto deletado dos Favoritos','Ok');
             }else{          
-                alert('ocorreu um erro.');
+                exibeMensagem('Erro','','Não foi possível deletar favorito','Entendi');
             }
         },
         error: function () {
-            alert('error');
+            alert('error conexao');
         }
     })
 }
@@ -328,7 +346,7 @@ function exibeMensagem(titulo,textoMaior,textoMenor,botao){
     $('#textoMaiorPopup').html(textoMaior);
     $('#textoMenorPopup').html(textoMenor);
     $('#btnOkPopup').html(botao);
-    //$('#btnPopup').click();
+    $('#btnPopup').click();
 }
 
 
@@ -336,7 +354,7 @@ function exibeMensagem(titulo,textoMaior,textoMenor,botao){
 /* INICIA PAGINA*/
 $.fn.raty.defaults.path = 'raty/lib/images';
 $(function() {
-
+$('#loaderPagina').click();
 /* VALIDA E CARREGA PAGINA*/
 var id = window.location.href.split("c=")[1];
 if($.isNumeric(id)){
@@ -361,7 +379,8 @@ $('#estrelas').raty({
     var posto_id   = $('#codigoPosto').val();
     $.post('http://eforms.esy.es/phonegap/cadastraVotacao.php', {posto_id:posto_id,votacao:score}, function html(retorno) {
     //$.post('http://localhost:8888/combustivel/www/php/cadastraVotacao.php', {posto_id:posto_id,votacao:score}, function html(retorno) {
-        alert('Votação realizada com sucesso!\nObrigado por sua ajuda.')
+        //alert('Votação realizada com sucesso!\nObrigado por sua ajuda.')
+        exibeMensagem('Mensagem','','Votação realizada com sucesso!\nObrigado por sua ajuda.','Ok');
         media = retorno;
         $('#estrelas').raty('score',media);
         $('#readOnly-function-run').click();

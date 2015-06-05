@@ -9,28 +9,30 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/verificaAcesso.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
 </head> 
-<body class="ui-mobile-viewport ui-overlay-a"> 
-
-<div data-role="page" style="top: 0px"  class="jqm-demos ui-responsive-panel" data-title="Combustivel+EmConta" >
+<body> 
+<div data-role="page" style="top: 0px" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1" data-title="Combustivel+EmConta" >
     <div role="main" class="ui-contents jqm-content jqm-fullwidth">     
         <div data-role="tabs">    
             <div data-role="navbar">
                 <ul>
                     <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
                  </ul>
-                 
+                 <!-- <ul>
+                    <li><a class="ui-btn-actives"  data-theme="b" data-ajax="false"></a></li>
+                 </ul> -->
             </div>
         </div>
     </div>
-    <div class="ui-panel-wrappers">
+     <div class="ui-panel-wrappers">
         <div data-role="header">
-            <h1>Combustível+</h1>
-        <a href="#nav-panel" data-icon="gear" data-position="right" >Menu</a>
-        </div><!-- /header -->
+            <h1>Combustivel+</h1>
+            <a href="#nav-panel" data-icon="gear" data-position="right" >Menu</a>
+        </div>
     </div>
-
-
+     
     <div role="main" class="ui-contents jqm-content jqm-fullwidth"> 
         <div data-role="tabs">
             <div data-role="navbar">
@@ -52,18 +54,14 @@
     
     <div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
         <ul data-role="listview">
-                <li></li>
-                <li data-icon="back"><a href="#" data-rel="close">Voltar</a></li>
+                <li><a id="#" href="#" data-ajax="false"></a></li>
                 <li><a id="linkEditarPerfil" href="formCadastroUsuario.html?c=" data-ajax="false">Editar Perfil</a></li>
                 <li><a href="ajuda.html" data-ajax="false">Ajuda</a></li>
+                <li data-icon="back"><a href="#" data-rel="close">Voltar</a></li>
                 <li data-icon="delete"><a href="#" id="logout" data-ajax="false">Logout</a></li>
                 
         </ul>
     </div><!-- /panel -->
-
-    <a id="cancelarLoader" class="hide-page-loading-msg" ></a>
-
-    <a id="loaderPagina" data-msgtext="" data-theme="b"  class="show-page-loading-msg" data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true"></a>
 
 </div>
 <script type="text/javascript">
@@ -82,7 +80,6 @@ $('#logout').on('click', function(e){
 
 /* BUSCA POSTO*/
 $(function() {
-$('#loaderPagina').click();    
 var login = window.localStorage.getItem("username");
 //$.get('http://localhost:8888/combustivel/www/php/getUsuario.php', {login:login}, function html(json) {
 $.get('http://eforms.esy.es/phonegap/getUsuario.php', {login:login}, function html(json) {
@@ -154,7 +151,7 @@ function getPostos(filtro) {
             
         }    
         
-        $("#cancelarLoader").click();
+        
     });  
 }
 function getFavoritos(codigo) { 
