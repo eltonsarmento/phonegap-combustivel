@@ -62,9 +62,8 @@ function buscarComentariosPosto(id_posto) {
     var cont = 0;
     var qtd = 0;
     var vetor = null;
-    $.get('http://eforms.esy.es/phonegap/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
-    //$.get('http://localhost:8888/combustivel/www/php/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
-    
+    //$.get('http://eforms.esy.es/phonegap/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
+    $.get('http://localhost:8888/combustivel/www/php/getComentariosByPosto.php', {id_posto:id_posto}, function html(json) {
         var html = '';
         var dados = jQuery.parseJSON(json);
         vetor = new Array(dados.length);

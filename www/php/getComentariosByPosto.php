@@ -20,8 +20,9 @@ $result = mysql_query($sql);
 if($result){
 	
 	while($posto = mysql_fetch_array($result)) {
-		$dados['nome_usuario']  = utf8_encode($posto['nome']);
-		$dados['comentario']    = utf8_encode($posto['comentario']);
+
+		$dados['nome_usuario']  = $posto['nome'];
+		$dados['comentario']    = $posto['comentario'];
 		$dados['data_cadastro'] = $posto['dataCadastro'];
 		
 		if($dados['data_cadastro'] == ''){

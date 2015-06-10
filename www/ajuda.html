@@ -59,7 +59,8 @@ $(function() {
         nextId++;
         var dados = jQuery.parseJSON(json);
         $.each(dados.ajudas, function(chave,item) {
-            if(item.imagem != '') imagem = ' <img width="100%" src="http://localhost:8888/combustivel/www/img/'+item.imagem+'">';
+            if(item.imagem != '') 
+                imagem = ' <img width="100%" src="http://eforms.esy.es/uploads/imagens/'+item.imagem+'">';
 
             var content = "<div data-role='collapsible' id='set" + nextId + "'><h3>" + item.nome + "</h3><p>"+item.descricao+"</p>"+imagem+"</div>";
             $("#set").append(content).collapsibleset('refresh');

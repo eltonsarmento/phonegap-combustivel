@@ -107,7 +107,7 @@
             </center>
             <button id="btnComentar" class="ui-btn ui-corner-all ui-shadow" >Comentar</button>
 
-            <button  id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Todos Comentários</button>
+            <button  id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Mostrar Comentários</button>
 
             <div class="item">                
                 <input id="score-function" type="hidden" value="1" class="input">
@@ -187,7 +187,7 @@ $('#btnEditar').on('click',function(e){
         gravarEdicao();
         $("input[type='text']").attr( "disabled", 'disabled' );
         $( ".ui-input-text" ).addClass("ui-state-disabled")    
-        $(this).html('Edita Valores');
+        $(this).html('Editar Valores');
     }else if ($(this).html() == 'Editar Valores'){
         $("input[type='text']").prop( "disabled", false );
         $( ".ui-input-text" ).removeClass("ui-state-disabled")    
@@ -223,7 +223,8 @@ function gravarEdicao(){
 /* VER COMENTÁRIOS*/
 $('#btnTodosComentarios').on('click',function(e){
     e.preventDefault(); 
-    window.location.href = "comentarios.html";
+    var id_posto   = $('#codigoPosto').val();
+    window.location.href = "comentarios.html?c="+id_posto;
 });
 
 /* COMENTA POSTO*/
@@ -231,8 +232,8 @@ $('#btnComentar').on('click',function(e){
     e.preventDefault(); 
     if($(this).html() == "Comentar"){ 
         document.getElementById("textareaComentario").style.display = "block";        
-        $(this).html('Enviar Comentario');
-    }else if($(this).html() == "Enviar Comentario"){        
+        $(this).html('Enviar Comentário');
+    }else if($(this).html() == "Enviar Comentário"){        
          resposta = gravaComentario($("#textareaComentario").val());
          document.getElementById("textareaComentario").style.display = "none";        
          document.getElementById("textareaComentario").html = "";
@@ -291,7 +292,7 @@ function gravaFavorito(){
         success: function (result) {
             if(result == '1'){
                 exibeMensagem('Mensagem','','Posto adicionado aos Favoritos!','Ok');
-                $('#btnFavoritar').html('Deleta Favorito');
+                $('#btnFavoritar').html('Deletar Favorito');
             }else{          
                 exibeMensagem('Erro','','Não foi possivel favoritar.','Entendi');
             }
