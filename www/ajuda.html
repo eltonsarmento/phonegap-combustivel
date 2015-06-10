@@ -35,23 +35,38 @@
 
     
         <h1>Ajuda do Aplicativo</h1>
-        <div data-role="collapsible">
-            <h4 id="nomeAjuda">Item 1 da Ajuda</h4>
-            <p>Aqui firará o texto que for cadastrado no gerenciador para descrever a ajuda.</p>
-            <img src="http://demos.jquerymobile.com/1.4.5/_assets/img/album-bb.jpg">
+        <br>
+        <div data-role="collapsible-set" data-content-theme="a" id="set" class="ui-collapsible-set ui-corner-all">
+
         </div>        
     </div><!-- /content -->
 
 
     <div data-role="panel" data-display="push" data-theme="a" id="nav-panel">
         <ul data-role="listview">
-                <li><a href="#panel-responsive-page2">Editar Perfil</a></li>
-                <li><a href="#panel-responsive-page2">Ajuda</a></li>
-                <li data-icon="delete"><a href="#" data-rel="close">Sair</a></li>
-                
+                <li><a href="home.html" data-ajax="false">Voltar</a></li>                
         </ul>
     </div><!-- /panel -->
 </div>
 
+<script type="text/javascript">
+$(function() {
+    var nextId = 1;
+    var imagem = '';
+    //$.get('http://localhost:8888/combustivel/www/php/listaAjuda.php',  function html(json) {
+    $.get('http://eforms.esy.es/phonegap/listaAjuda.php',  function html(json) {
+        
+        nextId++;
+        var dados = jQuery.parseJSON(json);
+        $.each(dados.ajudas, function(chave,item) {
+            if(item.imagem != '') imagem = ' <img width="100%" src="http://localhost:8888/combustivel/www/img/'+item.imagem+'">';
+
+            var content = "<div data-role='collapsible' id='set" + nextId + "'><h3>" + item.nome + "</h3><p>"+item.descricao+"</p>"+imagem+"</div>";
+            $("#set").append(content).collapsibleset('refresh');
+        })
+    });
+});
+
+</script>
 </body>
 </html>

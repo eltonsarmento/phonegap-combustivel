@@ -107,7 +107,7 @@
             </center>
             <button id="btnComentar" class="ui-btn ui-corner-all ui-shadow" >Comentar</button>
 
-            <button  id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Todos Comentários</button>
+            <button href="comentarios.html" id="btnTodosComentarios" style="display: none" class="ui-btn ui-corner-all ui-shadow" data-ajax="false">Todos Comentários</button>
 
             <div class="item">                
                 <input id="score-function" type="hidden" value="1" class="input">
@@ -218,13 +218,6 @@ function gravarEdicao(){
     })
 }
 /* FIM EDITA COMBUSTÍVEIS*/
-
-
-/* VER COMENTÁRIOS*/
-$('#btnTodosComentarios').on('click',function(e){
-    e.preventDefault(); 
-    window.location.href = "comentarios.html";
-});
 
 /* COMENTA POSTO*/
 $('#btnComentar').on('click',function(e){
