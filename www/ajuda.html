@@ -59,6 +59,7 @@ $(function() {
         nextId++;
         var dados = jQuery.parseJSON(json);
         $.each(dados.ajudas, function(chave,item) {
+            imagem = '';
             if(item.imagem != '') 
                 imagem = ' <img width="100%" src="http://eforms.esy.es/uploads/imagens/'+item.imagem+'">';
 
