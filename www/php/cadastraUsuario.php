@@ -6,10 +6,11 @@ mysql_select_db("combustivel");
 $nome	   = mysql_real_escape_string($_POST['Nome']);
 $login	   = mysql_real_escape_string($_POST['Login']);
 $email	   = mysql_real_escape_string($_POST['Email']);
-$senha 	   = md5(mysql_real_escape_string($_POST['inputSenha']));
+$senha 	   = mysql_real_escape_string($_POST['inputSenha']);
 $data_cadastro = date("Y-m-d H:m:i");
 $nivel  = 'N';
 $ativo = 1;
+$excluido = 0;
 
 $sql = " insert into usuarios (nome,
 							  login,
@@ -27,7 +28,7 @@ $sql = " insert into usuarios (nome,
 					'".$data_cadastro."',
 					'".$nivel."',
 					'".$ativo."',
-					 ".0.")";
+					 ".$excluido.")";
 
 $result = mysql_query($sql);
 

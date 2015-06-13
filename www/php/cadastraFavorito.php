@@ -1,4 +1,5 @@
 <?php
+echo "string";die();
 $con = mysql_connect('localhost:8889','root','root');
 if(!$con) die('Não foi possivel conectar: '.mysql_error());
 mysql_select_db("combustivel");
