@@ -9,7 +9,7 @@ var Login = function () {
 	                username: {
 	                    required: true
 	                },
-	                senha: {
+	                password: {
 	                    required: true
 	                },
 	                remember: {
@@ -19,10 +19,10 @@ var Login = function () {
 
 	            messages: {
 	                username: {
-	                    required: "Login é obrigatório."
+	                    required: "Username is required1."
 	                },
-	                senha: {
-	                    required: "Senha é obrigatório."
+	                password: {
+	                    required: "Password is required2."
 	                }
 	            },
 
@@ -45,30 +45,28 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-
-                	var login = $('#login').val();
-					var senha = $('#senha').val();
+	                //form.submit();
+	                var login = $('#login').val();
+	                var senha = $('#senha').val();
 
 	                $.ajax({
 	                    type: "POST",
-	                    url: "http://eforms.esy.es/phonegap/login.php",
-	                    //url: "http://localhost:8888/combustivel/www/php/login.php",
+	                    //url: "http://eforms.esy.es/phonegap/login.php",
+	                    url: "http://localhost:8888/combustivel/www/php/login.php",
 	                    data: {login: login, senha:senha},
 	                    success: function (result) {
-	                        //alert(result);
+	                        alert(result);
 	                        if(result == '1'){
 	                            window.localStorage.setItem("username", login);
 	                            window.location.href =  "home.html";
-	                            
 	                        }else{                            
-	                            alert('error');
+	                            alert("error login e senha");
 	                        }
 	                    },
 	                    error: function () {
 	                        alert("Erro de conexao");
 	                    }
 	                })
-	                //form.submit();
 	            }
 	        });
 
@@ -97,7 +95,7 @@ var Login = function () {
 
 	            messages: {
 	                email: {
-	                    required: "Email é obrigatório."
+	                    required: "Email is required."
 	                }
 	            },
 
@@ -185,10 +183,6 @@ var Login = function () {
 	                    email: true
 	                },
 	                login: {
-	                    required: true,
-	                },
-
-	                login: {
 	                    required: true
 	                },
 	                password: {
@@ -221,7 +215,6 @@ var Login = function () {
 	            success: function (label) {
 	                label.closest('.control-group').removeClass('error');
 	                label.remove();
-	                
 	            },
 
 	            errorPlacement: function (error, element) {
@@ -235,30 +228,31 @@ var Login = function () {
 	            },
 
 	            submitHandler: function (form) {
-	            	//var vDados = $('.register-form').serialize();
-	            	var nome   = $('#nome').val();
-	            	var login  = $('#login2').val();
-	            	var email  = $('#email').val();
-	            	var senha  = $('#register_password').val();
+	                //form.submit();
 
-	            	
-				    $.ajax({
-	                    type: "POST",
-	                    url: "http://eforms.esy.es/phonegap/login.php",
-	                    //url: "http://localhost:8888/combustivel/www/php/cadastraUsuario.php",
-	                    data: {Nome: nome, Login: login, Email: email, inputSenha: senha},
-	                    success: function (result) {
-	                        alert(result);
-	                        if(result == '1'){
-	                            window.location.href =  "index.html";
-	                        }else{                            
-	                            alert('error');
-	                        }
-	                    },
-	                    error: function () {
-	                        alert("Erro de conexao");
-	                    }
-	                })
+	                var nome = $('#nome').val();
+	                var email = $('#email').val();
+	                var login = $('#login2').val();
+	                var senha = $('#register_password').val();
+	                alert('cadastro');
+	                $.ajax({
+				        type: "POST",
+				        //url: "http://eforms.esy.es/phonegap/cadastraUsuario.php",        
+				        url: "http://localhost:8888/combustivel/www/php/cadastraUsuario.php",
+				        data: {Nome:nome, Email:email, Login:login, inputSenha:senha},
+				        success: function (result) {
+				        	alert(result);
+				            if(result == '1'){
+				            	alert('Cadastro realizado com sucesso!');
+				                window.location.href =  "index.html";
+				            }else{          
+				            	alert('error de cadastro');
+				            }
+				        },
+				        error: function () {
+				            alert('error de conexao.');
+				        }
+				    })
 	            }
 	        });
 

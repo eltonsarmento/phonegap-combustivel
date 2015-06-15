@@ -106,8 +106,8 @@ function getPostos(filtro) {
     var cont = 0;
     var qtd = 0;
     var vetor = null;
-    $.get('http://localhost:8888/combustivel/www/php/getPostos.php', {filtro:filtro}, function html(json) {
-    //$.get('http://eforms.esy.es/phonegap/getPostos.php', {filtro:filtro}, function html(json) {
+    //$.get('http://localhost:8888/combustivel/www/php/getPostos.php', {filtro:filtro}, function html(json) {
+    $.get('http://eforms.esy.es/phonegap/getPostos.php', {filtro:filtro}, function html(json) {
 
         var html = '';
         var dados = jQuery.parseJSON(json);
@@ -158,8 +158,8 @@ function getPostos(filtro) {
     });  
 }
 function getFavoritos(codigo) { 
-    $.get('http://localhost:8888/combustivel/www/php/getPostos.php', {usuario:codigo}, function html(json) {
-    //$.get('http://eforms.esy.es/phonegap/getPostos.php', {usuario:codigo}, function html(json) {
+    //$.get('http://localhost:8888/combustivel/www/php/getPostos.php', {usuario:codigo}, function html(json) {
+    $.get('http://eforms.esy.es/phonegap/getPostos.php', {usuario:codigo}, function html(json) {
         
         var dados = jQuery.parseJSON(json);
         var html = '<br>';
