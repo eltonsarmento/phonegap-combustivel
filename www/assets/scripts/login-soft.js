@@ -9,20 +9,17 @@ var Login = function () {
 	                username: {
 	                    required: true
 	                },
-	                password: {
+	                senha: {
 	                    required: true
-	                },
-	                remember: {
-	                    required: false
 	                }
 	            },
 
 	            messages: {
 	                username: {
-	                    required: "Username is required1."
+	                    required: "Login é obrigatório."
 	                },
-	                password: {
-	                    required: "Password is required2."
+	                senha: {
+	                    required: "Senha é obrigatório."
 	                }
 	            },
 
