@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+  <head>  	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="description" content="fresh Gray Bootstrap 3.0 Responsive Theme "/>
+	<meta name="keywords" content="Template, Theme, web, html5, css3, Bootstrap,Bootstrap 3.0 Responsive Theme" />
+	<meta name="author" content="Mindfreakerstuff"/>
+    <link rel="shortcut icon" href="favicon.png"> 
+    
+	<title>Home- fresh Gray Theme by Mindfreakerstuff Bootstrap 3.0 Responsive Theme</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/login.css" rel="stylesheet">
+    <link href="css/animate-custom.css" rel="stylesheet">
+   
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript" src="js/jQuery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+   
+  </head>
+    <body>
+    	<!-- start Login box -->
+    	<div class="container" id="login-block">
+    		<div class="row">
+			    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+			    	<h3 class="animated bounceInDown">Registre Agora</h3>
+			       <div class="login-box clearfix animated flipInY">
+			        	<div class="login-logo">
+			        		<a href="#"><img src="img/posto2.png" width="150px" alt="Company Logo" /></a>
+			        	</div> 
+			        	<hr />
+			        	<div class="login-form">
+			        		<div class="alert alert-danger" id="div_error" style="display: none">
+								  <button type="button" class="close" data-dismiss="alert">&times;</button>
+								  <h4>Error!</h4>
+								  <span id="msg_error"></span>
+							</div>
+			        		<form action="#" method="POST" id="formCadastroUsuario" >
+			        			
+						   		 <input type="text" placeholder="Nome" id="Nome" name="Nome" requireds/> 
+						   		 <input type="text" placeholder="Login" id="Login" name="Login" requireds/> 
+						   		 <input type="email" placeholder="E-mail" id="Email" name="Email" requireds/> 
+						   		 <input type="password" id="senha" placeholder="Password" name="inputSenha" requireds/>  
+						   		 <input type="password"  id="rpassword" placeholder="Confirm Password" requireds/>  
+						   		 
+						   		 <button type="submit" class="btn btn-login">Cadastrar</button> 
+							</form>	
+							<div class="login-links"> 
+					            <a href="forgot-password.html">
+					          	   Esqueceu a Senha?
+					            </a>
+					            <br />
+					             <a href="index.html">
+					             Eu já tenho uma contat?  <strong>Sign In</strong>
+					            </a>
+							</div>      		
+			        	</div> 
+			       </div>
+			    </div>
+			</div>
+    	</div>
+    	<script type="text/javascript">
+    	$('#formCadastroUsuario').submit(function(e) {
+    		e.preventDefault();
+
+    		var vDados = $('#formCadastroUsuario').serialize();
+    		var Nome = $('#Nome').val();
+    		var Login = $('#Login').val();
+    		var Email = $('#Email').val();
+    		var password = $('#senha').val();
+    		var rpassword = $('#rpassword').val();
+    		var msg = "";
+	    	
+	    	if(Nome == "") msg += "<br>Nome não pode estar vazio.";	
+	    	if(Login == "") msg += "<br>Login não pode estar vazio.";
+    		if(Email == "") msg += "<br>Email não pode estar vazio.";
+    		
+    		
+    		if(password == ""){
+    			msg += "<br>Senha não pode estar vazio.";	
+    		}else if(password != rpassword){
+    			msg += "Confirma Senha é diferente de senha.";
+    		}
+
+    		if(msg != ''){
+    			$('#msg_error').html(msg);
+    			document.getElementById("div_error").style.display = "block";
+    		}else{
+	    		
+			    $.ajax({
+			        type: "POST",
+			        url: "http://eforms.esy.es/phonegap/cadastraUsuario.php",        
+			        //url: "http://localhost:8888/combustivel/www/php/cadastraUsuario.php",
+			        data: vDados,
+			        success: function (result) {
+			        	//alert(result);
+			            if(result == '1'){
+			            	alert('Cadastro Realizado com sucesso!');
+			                window.location.href =  "index.html";
+			            }else{          
+			            	alert('error');                  
+			            }
+			        },
+			        error: function () {
+			            alert('error conexao');
+			        }
+			    })
+			}
+		});
+    	</script>
+        <!-- End Login box -->
+     	<footer class="container">
+     		<p id="footer-text"><small>Copyright &copy; 2014 <a href="http://eforms.esy.es">Elton Monteiro.</a></small></p>
+     	</footer>
+
+        
+    </body>
+</html>

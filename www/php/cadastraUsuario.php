@@ -7,6 +7,7 @@ $nome	   = mysql_real_escape_string($_POST['Nome']);
 $login	   = mysql_real_escape_string($_POST['Login']);
 $email	   = mysql_real_escape_string($_POST['Email']);
 $senha 	   = mysql_real_escape_string($_POST['inputSenha']);
+$senha 	   = hash('sha256',$senha);
 $data_cadastro = date("Y-m-d H:m:i");
 $nivel  = 'N';
 $ativo = 1;

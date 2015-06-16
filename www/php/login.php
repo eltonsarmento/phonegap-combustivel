@@ -4,7 +4,8 @@ if(!$con) die('Não foi possivel conectar: '.mysql_error());
 mysql_select_db("combustivel");
 
 $login = mysql_real_escape_string($_POST['login']);
-$senha = md5(mysql_real_escape_string($_POST['senha']));
+$senha = mysql_real_escape_string($_POST['senha']);
+$senha = hash('sha256',$senha);
 
 $sql = "select * from usuarios where login = '".$login."' and senha = '".$senha."'";
 
