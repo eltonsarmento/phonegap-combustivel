@@ -34,17 +34,20 @@
     	<div class="container" id="login-block">
     		<div class="row">
 			    <div class="col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-			    	<h3 class="animated bounceInDown">Registre Agora</h3>
+			    	<h3 class="animated bounceInDown">Registre-se Agora</h3>
 			       <div class="login-box clearfix animated flipInY">
 			        	<div class="login-logo">
-			        		<a href="#"><img src="img/posto2.png" width="150px" alt="Company Logo" /></a>
+			        		<a href="#"><img src="img/posto.png" width="150px" alt="Company Logo" /></a>
 			        	</div> 
 			        	<hr />
 			        	<div class="login-form">
 			        		<div class="alert alert-danger" id="div_error" style="display: none">
-								  <button type="button" class="close" data-dismiss="alert">&times;</button>
+								  <button type="button" class="close" data-dismiss="alert"></button><!-- &times; -->
 								  <h4>Error!</h4>
 								  <span id="msg_error"></span>
+							</div>
+							<div class="alert alert-success" id="div_sucesso" style="display: none">
+								<strong>Cadastro realizado com sucesso!</strong>
 							</div>
 			        		<form action="#" method="POST" id="formCadastroUsuario" >
 			        			
@@ -62,7 +65,7 @@
 					            </a>
 					            <br />
 					             <a href="index.html">
-					             Eu já tenho uma contat?  <strong>Sign In</strong>
+					             Eu já tem uma conta?  <strong>Entrar</strong>
 					            </a>
 							</div>      		
 			        	</div> 
@@ -73,7 +76,6 @@
     	<script type="text/javascript">
     	$('#formCadastroUsuario').submit(function(e) {
     		e.preventDefault();
-
     		var vDados = $('#formCadastroUsuario').serialize();
     		var Nome = $('#Nome').val();
     		var Login = $('#Login').val();
@@ -106,8 +108,7 @@
 			        success: function (result) {
 			        	//alert(result);
 			            if(result == '1'){
-			            	alert('Cadastro Realizado com sucesso!');
-			                window.location.href =  "index.html";
+			            	document.getElementById("div_sucesso").style.display = "block";
 			            }else{          
 			            	alert('error');                  
 			            }
