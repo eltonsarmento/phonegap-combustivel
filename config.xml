@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="br.com.phonegap.combustivel" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Combustivel + em conta</name>
+    <name>Combustível+EmConta</name>
     <description>
         Combustível + em conta é um app de pesquisa de posto com menor preço de combustivel.
         Além disso, você pode favoritar, comentar, avaliar e traçar uma rota para o mesmo.
