@@ -70,7 +70,7 @@
 		
 		
 		<button type="submit" class="show-page-loading-msg" data-theme="b" data-textonly="false" data-textvisible="true" 
-	data-msgtext="Cadastrando Usuário..." >Cadastrar</button>
+	data-msgtext="Cadastrando Usuário..." >Alterar</button>
 		</div>
 	</form>
 
@@ -145,14 +145,13 @@ if($.isNumeric(id)){
         //url: "http://localhost:8888/combustivel/www/php/cadastraUsuario.php",
         data: vDados,
         success: function (result) {
-        	alert(result);
+        	//alert(result);
             if(result == '1'){
             	$("#cancelarLoader").click();
             	window.localStorage.setItem("username", $('#inputLogin').val());
-                //window.location.href =  "http://localhost:8888/combustivel/www/home.html";
-                window.location.href =  "home.html";
+                //window.location.href =  "home.html";
             }else{          
-            	alert('error');                  
+            	alert('Não foi possível realizar a alteração.');                  
                 document.getElementById("msg_error").style.display = "block";
                 $("#cancelarLoader").click();
             }
