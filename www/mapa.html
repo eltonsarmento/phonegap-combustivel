@@ -7,7 +7,8 @@
 
 
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <style>
       html, body, #map-canvas {
@@ -78,14 +79,17 @@
     </script>
   </head>
   <body onload="calcRoute();">    
-     <div class="container-fluid" style="margin-top: 20px;">
+     <!-- <div class="container-fluid" style="margin-top: 20px;"> -->
         <nav class="navbar-inverse">
-          <div class="container">
+          <div class="container-fluid">
             <div class="navbar-header">
-              <a class="navbar-brand" href="#" onClick="voltar();" id="btnVoltar">Voltar</a>
+              <a class="navbar-brand" href="#" onClick="voltar();" id="btnVoltar">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                Voltar
+              </a>
             </div>
           </div>
         </nav>
-    </div>
+    <!-- </div> -->
     <div id="map-canvas"></div>
 </html>
