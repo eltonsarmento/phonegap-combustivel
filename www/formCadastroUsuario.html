@@ -70,7 +70,7 @@
 		
 		
 		<button type="submit" class="show-page-loading-msg" data-theme="b" data-textonly="false" data-textvisible="true" 
-	data-msgtext="Cadastrando Usuário..." >Alterar</button>
+	data-msgtext="Alterando Usuário..." >Alterar</button>
 		</div>
 	</form>
 
@@ -148,6 +148,7 @@ if($.isNumeric(id)){
         	//alert(result);
             if(result == '1'){
             	$("#cancelarLoader").click();
+            	exibeMensagem('Mensagem','','Usuário alterado com sucesso!','Ok');
             	window.localStorage.setItem("username", $('#inputLogin').val());
                 //window.location.href =  "home.html";
             }else{          
